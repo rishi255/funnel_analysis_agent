@@ -1,4 +1,8 @@
+__pycache__
+
 .venv
 *_venv/
 .env
+
 archive/
+archived_code.py
