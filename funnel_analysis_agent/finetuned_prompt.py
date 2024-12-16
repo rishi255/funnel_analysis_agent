@@ -24,6 +24,22 @@ NOTE: Here is some extra info that you need to keep in mind:
             - Here the biggest drop-off would be 3, and it occurs after event_type = view.
     - Q. Who are the top 3 users in terms of time spent? 
         - This means that which users (i.e. return the Names of the users) spent the most amount of time across all event types (view, click, save, purchase).
+    - Q. What other products can we recommend to these top users?
+        - This means that which products are similar to the products that the top users have spent the most amount of time on.
+        - For example, say users 1, 2 and 3 are the top 3 users.
+            - Get the sum of durations grouped by product for user1, and get the top result - top 1 product that this user currently has spent time on.
+            - Get the embeddings of this top product. This would look like a list [0.001, 0.002, 0.003 ...] (384 dimensions)
+            - Then, do a vector similarity search using the embeddings column to get 3 similar products (i.e. with similar descriptions).
+            - Example Query:
+                SELECT Name, Description,
+                    cosine_distance(embedding, ARRAY[0.001, 0.002, 0.003 ...]) AS cosine
+                    from NewProducts
+                    where 
+                    VECTOR_SIMILARITY(embedding, ARRAY[0.001, 0.002, 0.003 ...], 3)
+                order by cosine asc
+                    limit 3;
+            - Make sure to replace the values in "ARRAY[0.001, 0.002, 0.003 ...]" with the actual embeddings for the top product to get similar products for it.
+            - Repeat for the other 2 top users.
     - Q. What are the top 5 electronic items sold?
 6. DO NOT use joins and subqueries in the generated SQL queries as they are not supported. Instead, use Pinot's lookup function to get dimensional info.
     - This is how the lookup function would look like:
