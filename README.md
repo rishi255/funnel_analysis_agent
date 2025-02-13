@@ -2,7 +2,7 @@
 
 ## About
 
-Funnel Analysis Agent that converts natural language prompts to SQL queries and provides insights on data coming from StarTree cloud (Apache Pinot).
+Funnel Analysis Agent that converts natural language prompts to SQL queries and provides insights on real-time streaming data coming from StarTree cloud (Apache Pinot).
 
 Created as part of my submission for [StarTree's Mission: Impossible Data Reckoning Challenge](https://startree.ai/startree-mission-impossible).
 
